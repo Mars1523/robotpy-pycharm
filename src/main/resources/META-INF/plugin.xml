@@ -1,0 +1,30 @@
+<idea-plugin>
+    <id>com.noskcaj19.robotpy-pycharm</id>
+    <name>RobotPy PyCharm</name>
+    <vendor email="kcajdev@gmail.com" url="https://noskcaj19.github.io">Noskcaj19</vendor>
+
+    <description><![CDATA[
+    Tools for building robotpy robots with PyCharm
+    ]]></description>
+
+    <!-- see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
+    <depends>com.intellij.modules.python</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="RobotPy" secondary="true" icon="/py.png" anchor="right"
+                    factoryClass="toolwindow.RobotpyToolWindowFactory"/>
+        <configurationType implementation="runconfig.RobotpyRunConfigurationType"/>
+    </extensions>
+
+    <actions>
+        <action id="actions.ToggleToolbarFullCommandsVisibility" class="actions.ToggleToolbarFullCommandsVisibility"
+                text="Show all commands"
+                description="Something robot-y"
+                icon="AllIcons.Actions.Expandall">
+        </action>
+
+        <group id="Robotpy.Toolbar">
+            <reference id="actions.ToggleToolbarFullCommandsVisibility"/>
+        </group>
+    </actions>
+</idea-plugin>
