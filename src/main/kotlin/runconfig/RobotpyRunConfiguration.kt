@@ -30,6 +30,8 @@ class RobotpyRunConfiguration(
     private val LOG = Logger.getInstance(this::class.java)
 
     var command: String = ""
+    var coverage = false
+    var profile = false
 
     @NotNull
     override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> {
@@ -54,6 +56,15 @@ class RobotpyRunConfiguration(
             projectRootManager.projectSdk?.homePath ?: throw ExecutionException("Unable to detect python executable")
 
         LOG.info("Executing robotpy command: \"$command\" with robot path \"$mainFilePath\" [$pythonPath]")
-        return RobotpyRunState(executionEnvironment, listOf(pythonPath, mainFilePath, command))
+
+        var cmd = listOf(pythonPath, mainFilePath)
+        if (profile) {
+            cmd += "profiler"
+        } else if (coverage) {
+            cmd += "coverage"
+        }
+        cmd += command
+
+        return RobotpyRunState(executionEnvironment, cmd)
     }
 }

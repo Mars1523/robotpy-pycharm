@@ -22,6 +22,7 @@ import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.util.*
 import javax.swing.JComponent
+import javax.swing.border.EmptyBorder
 
 
 class RobotpyToolWindowFactory : ToolWindowFactory, DumbAware {
@@ -80,18 +81,17 @@ class RobotpyToolWindowPanel(project: Project) : SimpleToolWindowPanel(true, fal
                             RobotpyRunnerConfigurationFactory(RobotpyRunConfigurationType.getInstance())
                         )
                 val robotpyConfig = configuration.configuration as RobotpyRunConfiguration
-                robotpyConfig.command = command
 
+                if (command.startsWith("coverage ")) {
+                    robotpyConfig.coverage = true
+                    robotpyConfig.command = command.slice("coverage ".length until command.length)
+                } else if (command.startsWith("profiler ")) {
+                    robotpyConfig.command = command.slice("profiler ".length until command.length)
+                    robotpyConfig.profile = true
+                } else {
+                    robotpyConfig.command = command
+                }
 
-//                val y = RunManager.getInstance(project).createConfiguration("RobotPy PyTest", PyTestFactory)
-//                val x =
-//                    PyTestFactory.createConfiguration("RobotPy PyTest", PyTestRunConfiguration(project, PyTestFactory))
-//                val z = PyTestRunConfiguration(project, PyTestFactory)
-//                val e = ExecutionEnvironment
-//                val z = PyTestConfiguration(project, PyTestFactory)
-//                val env = ExecutionEnvironment()
-//                val exc = PyPyTestExecutionEnvironment(z, env)
-//                ProgramRunnerUtil.executeConfiguration(configuration, exc)
                 ProgramRunnerUtil.executeConfiguration(
                     configuration, DefaultRunExecutor.getRunExecutorInstance()
                 )
@@ -100,7 +100,18 @@ class RobotpyToolWindowPanel(project: Project) : SimpleToolWindowPanel(true, fal
     }
 
     companion object {
-        val lessCommands = Vector(listOf("run", "coverage", "deploy", "profiler", "sim", "test"))
+        val lessCommands = Vector(
+            listOf(
+                "deploy",
+                "test",
+                "sim",
+                "coverage test",
+                "coverage sim",
+                "profiler test",
+                "profiler sim",
+                "run"
+            )
+        )
         val fullCommands =
             Vector(listOf("add-tests", "create-physics", "websim") + lessCommands)
     }
