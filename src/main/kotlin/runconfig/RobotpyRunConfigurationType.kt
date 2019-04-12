@@ -11,7 +11,7 @@ class RobotpyRunConfigurationType :
         "ROBOTPY_RUN_CONFIGURATION",
         "Robotpy",
         "Robotpy command runner configuration",
-        PythonIcons.Python.InterpreterGear
+        PythonIcons.Python.Python
     ) {
 
     init {
