@@ -20,11 +20,15 @@
         <action id="actions.ToggleToolbarFullCommandsVisibility" class="actions.ToggleToolbarFullCommandsVisibility"
                 text="Show all commands"
                 description="Something robot-y"
-                icon="AllIcons.Actions.Expandall">
-        </action>
+                icon="AllIcons.Actions.Expandall"/>
+        <action id="actions.InstallRobotpyDeps" class="actions.InstallRobotpyDeps" text="Install Robotpy Dependencies"
+                description="Install packages for developing with robotpy"
+                icon="AllIcons.General.Add"/>
 
         <group id="Robotpy.Toolbar">
             <reference id="actions.ToggleToolbarFullCommandsVisibility"/>
+            <separator/>
+            <reference id="actions.InstallRobotpyDeps"/>
         </group>
     </actions>
 </idea-plugin>
