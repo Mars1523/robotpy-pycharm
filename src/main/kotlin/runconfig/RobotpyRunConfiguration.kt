@@ -11,6 +11,7 @@ import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
+import org.jdom.Element
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
 
@@ -34,6 +35,20 @@ class RobotpyRunConfiguration(
     var command: String = ""
     var coverage = false
     var profile = false
+
+    override fun readExternal(element: Element) {
+        super.readExternal(element)
+        element.readString("command")?.let { command = it }
+        element.readBool("profile")?.let { profile = it }
+        element.readBool("coverage")?.let { coverage = it }
+    }
+
+    override fun writeExternal(element: Element) {
+        super.writeExternal(element)
+        element.writeString("command", command)
+        element.writeBool("profile", profile)
+        element.writeBool("coverage", coverage)
+    }
 
     @NotNull
     override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> {
@@ -70,3 +85,24 @@ class RobotpyRunConfiguration(
         return RobotpyRunState(executionEnvironment, cmd)
     }
 }
+
+
+private fun Element.writeString(name: String, value: String) {
+    val opt = org.jdom.Element("option")
+    opt.setAttribute("name", name)
+    opt.setAttribute("value", value)
+    addContent(opt)
+}
+
+private fun Element.readString(name: String): String? =
+    children
+        .find { it.name == "option" && it.getAttributeValue("name") == name }
+        ?.getAttributeValue("value")
+
+private fun Element.writeBool(name: String, value: Boolean) {
+    writeString(name, value.toString())
+}
+
+private fun Element.readBool(name: String): Boolean? =
+    readString(name)?.toBoolean()
+
