@@ -1,16 +1,18 @@
 package runconfig
 
-import com.intellij.execution.*
+import com.intellij.execution.ExecutionException
+import com.intellij.execution.Executor
 import com.intellij.execution.configurations.*
 import com.intellij.execution.process.OSProcessHandler
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessTerminatedListener
-import com.intellij.openapi.options.SettingsEditor
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.openapi.diagnostic.Logger
+import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
-import org.jetbrains.annotations.*
+import org.jetbrains.annotations.NotNull
+import org.jetbrains.annotations.Nullable
 
 
 private class RobotpyRunState(environment: ExecutionEnvironment, private val command: List<String>) :

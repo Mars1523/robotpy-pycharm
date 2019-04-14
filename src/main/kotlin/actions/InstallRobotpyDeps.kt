@@ -47,7 +47,6 @@ class InstallRobotpyDeps : AnAction() {
                         pypkg.install("pyfrc")
                     }
                 }
-
             })
         }
     }

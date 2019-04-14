@@ -26,5 +26,4 @@ class ToggleToolbarFullCommandsVisibility : ToggleAction() {
             toolWindow?.showLessCommands()
         }
     }
-
 }

@@ -22,7 +22,6 @@ import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.util.*
 import javax.swing.JComponent
-import javax.swing.border.EmptyBorder
 
 
 class RobotpyToolWindowFactory : ToolWindowFactory, DumbAware {
@@ -31,7 +30,6 @@ class RobotpyToolWindowFactory : ToolWindowFactory, DumbAware {
         val tab = ContentFactory.SERVICE.getInstance().createContent(toolwindowPanel, "", false)
         toolWindow.contentManager.addContent(tab)
     }
-
 }
 
 class RobotpyToolWindowPanel(project: Project) : SimpleToolWindowPanel(true, false) {
