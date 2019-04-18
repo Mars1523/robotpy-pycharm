@@ -9,8 +9,11 @@ import com.intellij.openapi.actionSystem.PopupAction
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.openapi.ui.DialogBuilder
+import com.intellij.openapi.ui.LabeledComponent
 import com.intellij.openapi.ui.Messages
+import com.intellij.ui.HideableTitledPanel
 import com.intellij.ui.components.JBRadioButton
+import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
 import runconfig.InstallerRunConfiguration
 import runconfig.InstallerRunConfigurationFactory
@@ -38,7 +41,17 @@ class DependencyUtilAction : AnAction(), PopupAction, ActionListener {
         b.addActionListener(this)
         b.actionCommand = "install"
     }
+    private val teamField = LabeledComponent<JBTextField>().apply {
+        component = JBTextField()
+        text = "Team number"
+    }
+    private val hostnameField = LabeledComponent<JBTextField>().apply {
+        component = JBTextField()
+        text = "Robot hostname"
+    }
     private val deployPanel = JPanel(GridLayout(2, 2, 30, 0))
+    private val confPanel = HideableTitledPanel("Options", false)
+    private val splitPanel = JPanel(GridLayout(2, 1))
 
     private var project: Project? = null
 
@@ -57,6 +70,19 @@ class DependencyUtilAction : AnAction(), PopupAction, ActionListener {
             add(binaryRadio)
             add(installButton)
         }
+
+        val confContentPanel = JPanel(GridLayout(1, 2))
+        confContentPanel.apply {
+            add(teamField)
+            add(hostnameField)
+        }
+        confPanel.setContentComponent(confContentPanel)
+
+
+        splitPanel.apply {
+            add(deployPanel)
+            add(confPanel)
+        }
     }
 
     override fun actionPerformed(e: AnActionEvent) {
@@ -66,11 +92,12 @@ class DependencyUtilAction : AnAction(), PopupAction, ActionListener {
 
         project = e.project!!
 
+        confPanel.setOn(false)
         packageField.selectedItem = ""
 
         val panel = FormBuilder()
             .addLabeledComponent("Package", packageField)
-            .addComponent(deployPanel)
+            .addComponent(splitPanel)
             .panel
 
         val ret = DialogBuilder(project).title("RobotPy Dependency Utility")
@@ -111,6 +138,12 @@ class DependencyUtilAction : AnAction(), PopupAction, ActionListener {
                 return
             }
         }
+        if (teamField.component.text.isNotEmpty()) {
+            installerConfig.team = teamField.component.text
+        }
+        if (hostnameField.component.text.isNotEmpty()) {
+            installerConfig.hostname = hostnameField.component.text
+        }
         installerConfig.arguments = pkg
 
         ProgramRunnerUtil.executeConfiguration(
@@ -129,4 +162,6 @@ class DependencyUtilAction : AnAction(), PopupAction, ActionListener {
         ).map { "robotpy-$it" }.toTypedArray()
     }
 }
+
+
 

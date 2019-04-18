@@ -34,19 +34,25 @@ class InstallerRunConfiguration(
 ) : RunConfigurationBase<RunConfiguration>(project, factory, name) {
     private val LOG = Logger.getInstance(this::class.java)
 
-    var command: String = ""
-    var arguments: String = ""
+    var command = ""
+    var arguments = ""
+    var team = ""
+    var hostname = ""
 
     override fun readExternal(element: Element) {
         super.readExternal(element)
         element.readString("command")?.let { command = it }
         element.readString("arguments")?.let { arguments = it }
+        element.readString("team")?.let { team = it }
+        element.readString("hostname")?.let { hostname = it }
     }
 
     override fun writeExternal(element: Element) {
         super.writeExternal(element)
         element.writeString("command", command)
         element.writeString("arguments", arguments)
+        element.writeString("team", team)
+        element.writeString("hostname", hostname)
     }
 
     @NotNull
@@ -69,6 +75,16 @@ class InstallerRunConfiguration(
 
 
         val cmd = mutableListOf(pythonPath, "-m", "robotpy_installer", command)
+
+        if (team.isNotEmpty()) {
+            cmd += "--team"
+            cmd += team
+        }
+        if (hostname.isNotEmpty()) {
+            cmd += "--robot"
+            cmd += hostname
+        }
+
         val tokenizer = CommandLineTokenizer(arguments, true)
         val args = mutableListOf<String>()
         while (tokenizer.hasMoreTokens()) {
