@@ -1,3 +1,4 @@
+// TODO: Find a way to reduce duplication
 package runconfig
 
 import com.intellij.execution.ExecutionException
@@ -14,13 +15,10 @@ import com.intellij.openapi.roots.ProjectRootManager
 import org.jdom.Element
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
-import utils.xml.readBool
 import utils.xml.readString
-import utils.xml.writeBool
 import utils.xml.writeString
 
-
-private class RobotpyRunState(environment: ExecutionEnvironment, private val command: List<String>) :
+private class RobotpyInstallerRunState(environment: ExecutionEnvironment, private val command: List<String>) :
     CommandLineState(environment) {
     public override fun startProcess(): ProcessHandler {
         val cmd = OSProcessHandler(GeneralCommandLine(command))
@@ -29,7 +27,7 @@ private class RobotpyRunState(environment: ExecutionEnvironment, private val com
     }
 }
 
-class RobotpyRunConfiguration(
+class InstallerRunConfiguration(
     project: Project,
     factory: ConfigurationFactory,
     name: String
@@ -37,26 +35,23 @@ class RobotpyRunConfiguration(
     private val LOG = Logger.getInstance(this::class.java)
 
     var command: String = ""
-    var coverage = false
-    var profile = false
+    var arguments: String = ""
 
     override fun readExternal(element: Element) {
         super.readExternal(element)
         element.readString("command")?.let { command = it }
-        element.readBool("profile")?.let { profile = it }
-        element.readBool("coverage")?.let { coverage = it }
+        element.readString("arguments")?.let { arguments = it }
     }
 
     override fun writeExternal(element: Element) {
         super.writeExternal(element)
         element.writeString("command", command)
-        element.writeBool("profile", profile)
-        element.writeBool("coverage", coverage)
+        element.writeString("arguments", arguments)
     }
 
     @NotNull
     override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> {
-        return RobotpyCommandRunnerSettingsEditor()
+        return InstallerRunSettingsEditor()
     }
 
     @Throws(RuntimeConfigurationException::class)
@@ -69,25 +64,18 @@ class RobotpyRunConfiguration(
     override fun getState(@NotNull executor: Executor, @NotNull executionEnvironment: ExecutionEnvironment): RunProfileState? {
         val projectRootManager = ProjectRootManager.getInstance(project)
 
-        val sourceRoot = projectRootManager.contentRoots.first()
-        val mainFile = sourceRoot.findChild("robot")?.findChild("robot.py")
-            ?: throw ExecutionException("Unable to find robot/robot.py")
-        val mainFilePath = mainFile.canonicalPath ?: throw ExecutionException("Unable to resolve main file path")
         val pythonPath =
             projectRootManager.projectSdk?.homePath ?: throw ExecutionException("Unable to detect python executable")
 
-        LOG.info("Executing robotpy command: \"$command\" with robot path \"$mainFilePath\" [$pythonPath]")
 
-        val cmd = mutableListOf(pythonPath, mainFilePath)
-        if (profile) {
-            cmd += "profiler"
-        } else if (coverage) {
-            cmd += "coverage"
+        val cmd = mutableListOf(pythonPath, "-m", "robotpy_installer", command)
+        val tokenizer = CommandLineTokenizer(arguments, true)
+        val args = mutableListOf<String>()
+        while (tokenizer.hasMoreTokens()) {
+            args.add(tokenizer.nextToken())
         }
-        cmd += command
+        cmd.addAll(args)
 
-        return RobotpyRunState(executionEnvironment, cmd)
+        return RobotpyInstallerRunState(executionEnvironment, cmd)
     }
 }
-
-

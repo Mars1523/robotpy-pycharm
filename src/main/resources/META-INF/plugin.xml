@@ -14,21 +14,30 @@
         <toolWindow id="RobotPy" secondary="true" icon="/py.png" anchor="right"
                     factoryClass="toolwindow.RobotpyToolWindowFactory"/>
         <configurationType implementation="runconfig.RobotpyRunConfigurationType"/>
+        <configurationType implementation="runconfig.InstallerRunConfigurationType"/>
     </extensions>
 
     <actions>
-        <action id="actions.ToggleToolbarFullCommandsVisibility" class="actions.ToggleToolbarFullCommandsVisibility"
+        <action id="actions.ToggleToolbarFullCommandsVisibility"
+                class="actions.ToggleToolbarFullCommandsVisibility"
                 text="Show all commands"
-                description="Something robot-y"
+                description="Show additional commands"
                 icon="AllIcons.Actions.Expandall"/>
-        <action id="actions.InstallRobotpyDeps" class="actions.InstallRobotpyDeps" text="Install Robotpy Dependencies"
+        <action id="actions.InstallRobotpyDeps"
+                class="actions.InstallRobotpyDeps"
+                text="Install Robotpy Dependencies"
                 description="Install packages for developing with robotpy"
                 icon="AllIcons.General.Add"/>
+        <action id="actions.DependencyUtilAction"
+                class="actions.DependencyUtilAction"
+                text="Install Packages"
+                description="Install robotpy packages"/>
 
         <group id="Robotpy.Toolbar">
             <reference id="actions.ToggleToolbarFullCommandsVisibility"/>
             <separator/>
             <reference id="actions.InstallRobotpyDeps"/>
+            <reference id="actions.DependencyUtilAction"/>
         </group>
     </actions>
 </idea-plugin>
