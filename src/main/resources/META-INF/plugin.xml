@@ -12,7 +12,7 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <directoryProjectGenerator implementation="newProject.RobotpyDirectoryProjectGenerator"/>
-
+        
         <toolWindow id="RobotPy" secondary="true" icon="/py.png" anchor="right"
                     factoryClass="toolwindow.RobotpyToolWindowFactory"/>
         <configurationType implementation="runconfig.RobotpyRunConfigurationType"/>

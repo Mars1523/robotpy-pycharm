@@ -1,5 +1,6 @@
 package newProject
 
+import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.module.Module
 import com.intellij.openapi.project.Project
@@ -37,6 +38,13 @@ class RobotpyDirectoryProjectGenerator : PythonBaseProjectGenerator() {
                 setBinaryContent(GITIGNORE_CONTENT.toByteArray())
             }
         }
+
+        // Use robot.py to generate tests and physics file
+        val mainFile = utils.findRobotFile(project) ?: return
+        val pythonPath = settings.sdk?.homePath ?: return
+
+        GeneralCommandLine(pythonPath, mainFile, "add-tests").createProcess()
+        GeneralCommandLine(pythonPath, mainFile, "create-physics").createProcess()
     }
 
     override fun getName(): String {
