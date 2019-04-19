@@ -33,7 +33,6 @@ class RobotpyCommandRunnerSettingsEditor : SettingsEditor<RobotpyRunConfiguratio
         return myPanel!!
     }
 
-
     private fun createUIComponents() {
         commandLabeledField = LabeledComponent()
         commandLabeledField!!.component = JTextField()

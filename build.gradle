@@ -23,7 +23,6 @@ compileTestKotlin {
 }
 
 intellij {
-//    version '2018.3.6'
     updateSinceUntilBuild false
     alternativeIdePath '/Applications/PyCharm.app/'
     localPath '/Applications/PyCharm.app/'

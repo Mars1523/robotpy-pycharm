@@ -23,7 +23,6 @@ import java.awt.event.MouseEvent
 import java.util.*
 import javax.swing.JComponent
 
-
 class RobotpyToolWindowFactory : ToolWindowFactory, DumbAware {
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
         val toolwindowPanel = RobotpyToolWindowPanel(project)
@@ -35,7 +34,6 @@ class RobotpyToolWindowFactory : ToolWindowFactory, DumbAware {
 class RobotpyToolWindowPanel(project: Project) : SimpleToolWindowPanel(true, false) {
     private val LOG = Logger.getInstance(this::class.java)
 
-
     private val toolbar: ActionToolbar = run {
         val actionManager = ActionManager.getInstance()
         actionManager.createActionToolbar(
@@ -44,7 +42,6 @@ class RobotpyToolWindowPanel(project: Project) : SimpleToolWindowPanel(true, fal
             true
         )
     }
-
 
     private val tree = JBList(lessCommands)
 
@@ -114,4 +111,3 @@ class RobotpyToolWindowPanel(project: Project) : SimpleToolWindowPanel(true, fal
             Vector(listOf("add-tests", "create-physics", "websim") + lessCommands)
     }
 }
-

@@ -55,7 +55,6 @@ class DependencyUtilAction : AnAction(), PopupAction, ActionListener {
 
     private var project: Project? = null
 
-
     init {
         pipRadio.isSelected = true
         ButtonGroup().apply {
@@ -77,7 +76,6 @@ class DependencyUtilAction : AnAction(), PopupAction, ActionListener {
             add(hostnameField)
         }
         confPanel.setContentComponent(confContentPanel)
-
 
         splitPanel.apply {
             add(deployPanel)
@@ -109,7 +107,6 @@ class DependencyUtilAction : AnAction(), PopupAction, ActionListener {
         }
     }
 
-
     override fun actionPerformed(e: ActionEvent?) {
         val pkg = packageField.selectedItem as String
         val configuration =
@@ -119,7 +116,6 @@ class DependencyUtilAction : AnAction(), PopupAction, ActionListener {
                     InstallerRunConfigurationFactory(InstallerRunConfigurationType.getInstance())
                 )
         val installerConfig = configuration.configuration as InstallerRunConfiguration
-
 
         val suffix = if (binaryRadio.isSelected) {
             "opkg"
@@ -162,6 +158,3 @@ class DependencyUtilAction : AnAction(), PopupAction, ActionListener {
         ).map { "robotpy-$it" }.toTypedArray()
     }
 }
-
-
-

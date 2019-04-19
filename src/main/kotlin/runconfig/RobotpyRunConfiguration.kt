@@ -19,7 +19,6 @@ import utils.xml.readString
 import utils.xml.writeBool
 import utils.xml.writeString
 
-
 private class RobotpyRunState(environment: ExecutionEnvironment, private val command: List<String>) :
     CommandLineState(environment) {
     public override fun startProcess(): ProcessHandler {
@@ -61,7 +60,6 @@ class RobotpyRunConfiguration(
 
     @Throws(RuntimeConfigurationException::class)
     override fun checkConfiguration() {
-
     }
 
     @Nullable
@@ -89,5 +87,3 @@ class RobotpyRunConfiguration(
         return RobotpyRunState(executionEnvironment, cmd)
     }
 }
-
-

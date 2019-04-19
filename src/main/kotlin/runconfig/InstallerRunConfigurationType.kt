@@ -4,7 +4,6 @@ import com.intellij.execution.configurations.ConfigurationTypeBase
 import com.intellij.execution.configurations.ConfigurationTypeUtil
 import icons.PythonIcons
 
-
 class InstallerRunConfigurationType :
     ConfigurationTypeBase(
         "ROBOTPY_INSTALLER_RUN_CONFIGURATION",

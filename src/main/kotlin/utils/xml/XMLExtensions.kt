@@ -20,4 +20,3 @@ fun Element.writeBool(name: String, value: Boolean) {
 
 fun Element.readBool(name: String): Boolean? =
     readString(name)?.toBoolean()
-

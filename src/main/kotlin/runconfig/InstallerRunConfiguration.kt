@@ -62,7 +62,6 @@ class InstallerRunConfiguration(
 
     @Throws(RuntimeConfigurationException::class)
     override fun checkConfiguration() {
-
     }
 
     @Nullable
@@ -72,7 +71,6 @@ class InstallerRunConfiguration(
 
         val pythonPath =
             projectRootManager.projectSdk?.homePath ?: throw ExecutionException("Unable to detect python executable")
-
 
         val cmd = mutableListOf(pythonPath, "-m", "robotpy_installer", command)
 
