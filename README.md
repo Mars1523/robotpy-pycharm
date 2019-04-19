@@ -8,5 +8,6 @@ everything you need into the PyCharm IDE.
 - [x] Command runners
     - [ ] Automatically grab commands from installed packages
 - [ ] Test UI integration
-- [ ] Robot specific dependency management helpers
+- [x] Robot specific dependency management helpers
 - [ ] Wizard to help robot installation and dependencies
+- [x] Robot template using project generators
