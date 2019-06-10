@@ -29,11 +29,12 @@
                 class="actions.InstallRobotpyDeps"
                 text="Install Robotpy Dependencies"
                 description="Install packages for developing with robotpy"
-                icon="AllIcons.General.Add"/>
+                icon="AllIcons.Actions.Install"/>
         <action id="actions.DependencyUtilAction"
                 class="actions.DependencyUtilAction"
                 text="Install Packages"
-                description="Install robotpy packages"/>
+                description="Install robotpy packages"
+                icon="AllIcons.General.GearPlain"/>
 
         <group id="Robotpy.Toolbar">
             <reference id="actions.ToggleToolbarFullCommandsVisibility"/>
