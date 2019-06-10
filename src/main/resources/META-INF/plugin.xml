@@ -2,6 +2,7 @@
     <id>com.noskcaj19.robotpy-pycharm</id>
     <name>RobotPy PyCharm</name>
     <vendor email="kcajdev@gmail.com" url="https://noskcaj19.github.io">Noskcaj19</vendor>
+    <idea-version since-build="183"/>
 
     <description><![CDATA[
     Tools for building robotpy robots with PyCharm

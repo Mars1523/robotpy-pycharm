@@ -30,5 +30,13 @@ intellij {
 
 patchPluginXml {
     changeNotes """
-    Inital version"""
+        <h1>PyCharm support for RobotPy</h1>
+
+        Initial version
+        <ul>
+            <li>Command runners for robotpy commands</li>
+            <li>Dependency management utility</li>
+            <li>MagicBot project template</li>
+        </ul>
+    """
 }
