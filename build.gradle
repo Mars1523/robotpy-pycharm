@@ -30,8 +30,6 @@ intellij {
 
 patchPluginXml {
     changeNotes """
-        <h1>PyCharm support for RobotPy</h1>
-
         Initial version
         <ul>
             <li>Command runners for robotpy commands</li>
