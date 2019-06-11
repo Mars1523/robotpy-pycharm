@@ -24,8 +24,8 @@ compileTestKotlin {
 
 intellij {
     updateSinceUntilBuild false
-    alternativeIdePath '/Applications/PyCharm.app/'
-    localPath '/Applications/PyCharm.app/'
+    version 'PC-LATEST-EAP-SNAPSHOT'
+    type 'PC'
 }
 
 task wrapper(type: Wrapper) {
