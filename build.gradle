@@ -28,6 +28,10 @@ intellij {
     localPath '/Applications/PyCharm.app/'
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.10'
+}
+
 patchPluginXml {
     changeNotes """
         Initial version
