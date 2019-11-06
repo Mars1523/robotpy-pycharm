@@ -28,7 +28,7 @@ intellij {
     type 'PC'
 }
 
-task wrapper(type: Wrapper) {
+wrapper {
     gradleVersion = '4.10'
 }
 
