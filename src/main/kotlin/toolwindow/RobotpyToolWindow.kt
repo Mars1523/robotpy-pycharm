@@ -87,6 +87,8 @@ class RobotpyToolWindowPanel(project: Project) : SimpleToolWindowPanel(true, fal
                     robotpyConfig.command = command
                 }
 
+                RunManager.getInstance(project).setTemporaryConfiguration(configuration)
+
                 ProgramRunnerUtil.executeConfiguration(
                     configuration, DefaultRunExecutor.getRunExecutorInstance()
                 )
