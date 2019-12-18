@@ -1,6 +1,9 @@
 package actions
 
 import com.intellij.icons.AllIcons
+import com.intellij.notification.Notification
+import com.intellij.notification.NotificationType
+import com.intellij.notification.Notifications
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.application.ApplicationManager
@@ -43,9 +46,14 @@ class InstallRobotpyDeps : AnAction() {
                             PyPackageUtil.addRequirementToTxtOrSetupPy(mod, "wpilib", LanguageLevel.PYTHON37)
                         }
                     }
+                    val completer = java.util.concurrent.CountDownLatch(1)
                     ApplicationManager.getApplication().executeOnPooledThread {
+                        pi.text = "Installing pyfrc"
                         pypkg.install("pyfrc")
+                        completer.countDown()
                     }
+                    completer.await()
+                    Notifications.Bus.notify(Notification("Pyfrc Installation", "Pyfrc Installation", "Pyfrc Successfully Installed", NotificationType.INFORMATION))
                 }
             })
         }
