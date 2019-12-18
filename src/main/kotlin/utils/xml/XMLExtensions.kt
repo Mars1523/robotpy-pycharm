@@ -3,7 +3,7 @@ package utils.xml
 import org.jdom.Element
 
 fun Element.writeString(name: String, value: String) {
-    val opt = org.jdom.Element("option")
+    val opt = Element("option")
     opt.setAttribute("name", name)
     opt.setAttribute("value", value)
     addContent(opt)

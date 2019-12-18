@@ -7,7 +7,7 @@ import com.intellij.util.ui.UIUtil
 import toolwindow.RobotpyToolWindowPanel
 
 class ToggleToolbarFullCommandsVisibility : ToggleAction() {
-    var showFull = false
+    private var showFull = false
 
     override fun isSelected(e: AnActionEvent): Boolean = showFull
 

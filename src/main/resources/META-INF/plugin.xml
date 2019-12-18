@@ -23,7 +23,7 @@
     <actions>
         <action id="actions.ToggleToolbarFullCommandsVisibility"
                 class="actions.ToggleToolbarFullCommandsVisibility"
-                text="Show all commands"
+                text="Show All Commands"
                 description="Show additional commands"
                 icon="AllIcons.Actions.Expandall"/>
         <action id="actions.InstallRobotpyDeps"

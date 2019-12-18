@@ -69,25 +69,30 @@ class RobotpyToolWindowPanel(project: Project) : SimpleToolWindowPanel(true, fal
                 val command = list.model.getElementAt(index) as String
                 LOG.info("User clicked command: $command, index $index")
 
+                val runManager = RunManager.getInstance(project)
                 val configuration =
-                    RunManager.getInstance(project)
+                    runManager
                         .createConfiguration(
                             "RobotPy: $command",
                             RobotpyRunnerConfigurationFactory(RobotpyRunConfigurationType.getInstance())
                         )
                 val robotpyConfig = configuration.configuration as RobotpyRunConfiguration
 
-                if (command.startsWith("coverage ")) {
-                    robotpyConfig.coverage = true
-                    robotpyConfig.command = command.slice("coverage ".length until command.length)
-                } else if (command.startsWith("profiler ")) {
-                    robotpyConfig.command = command.slice("profiler ".length until command.length)
-                    robotpyConfig.profile = true
-                } else {
-                    robotpyConfig.command = command
+                when {
+                    command.startsWith("coverage ") -> {
+                        robotpyConfig.coverage = true
+                        robotpyConfig.command = command.slice("coverage ".length until command.length)
+                    }
+                    command.startsWith("profiler ") -> {
+                        robotpyConfig.profile = true
+                        robotpyConfig.command = command.slice("profiler ".length until command.length)
+                    }
+                    else -> {
+                        robotpyConfig.command = command
+                    }
                 }
 
-                RunManager.getInstance(project).setTemporaryConfiguration(configuration)
+                runManager.setTemporaryConfiguration(configuration)
 
                 ProgramRunnerUtil.executeConfiguration(
                     configuration, DefaultRunExecutor.getRunExecutorInstance()

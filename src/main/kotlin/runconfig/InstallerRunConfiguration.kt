@@ -8,7 +8,6 @@ import com.intellij.execution.process.OSProcessHandler
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessTerminatedListener
 import com.intellij.execution.runners.ExecutionEnvironment
-import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ProjectRootManager
@@ -32,8 +31,6 @@ class InstallerRunConfiguration(
     factory: ConfigurationFactory,
     name: String
 ) : RunConfigurationBase<RunConfiguration>(project, factory, name) {
-    private val LOG = Logger.getInstance(this::class.java)
-
     var command = ""
     var arguments = ""
     var team = ""
