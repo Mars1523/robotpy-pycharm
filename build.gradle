@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.mars'
-version '1.1-SNAPSHOT'
+version '1.2-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -34,9 +34,9 @@ wrapper {
 
 patchPluginXml {
     changeNotes """
-        Initial test interface support
         <ul>
-            <li>Run tests in the pycharm test window for better readability</li>
+            <li>Show installation progress correctly</li>
+            <li>Properly save run configurations</li>
         </ul>
     """
 }
