@@ -24,7 +24,8 @@ compileTestKotlin {
 
 intellij {
     updateSinceUntilBuild false
-    version 'PC-2019.2'
+    plugins = ['PythonCore:193.5662.65']
+    version 'PC-2019.3.1'
     type 'PC'
 }
 
