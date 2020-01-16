@@ -24,6 +24,7 @@ import com.jetbrains.python.PythonHelpersLocator
 import com.jetbrains.python.console.PythonDebugLanguageConsoleView
 import com.jetbrains.python.run.PythonTracebackFilter
 import com.jetbrains.python.sdk.PythonSdkType
+import com.jetbrains.python.sdk.PythonSdkUtil
 import org.jdom.Element
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
@@ -80,7 +81,7 @@ private class RobotpyRunState(
         val mainFilePath = utils.findRobotFile(project) ?: throw ExecutionException("Unable to resolve main file path")
 
         val console = PythonDebugLanguageConsoleView(
-            project, PythonSdkType.findSdkByPath(utils.getPythonPath(project)),
+            project, PythonSdkUtil.findSdkByPath(utils.getPythonPath(project)),
             testsOutputConsoleView, true
         )
 
