@@ -5,7 +5,7 @@
     <idea-version since-build="191"/>
 
     <description><![CDATA[
-    Utilities for using RobotPy with PyCharm
+    Utilities for building FRC robots with <a href="https://robotpy.readthedocs.io/en/stable/">RobotPy</a> and PyCharm
     ]]></description>
 
     <!-- see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
