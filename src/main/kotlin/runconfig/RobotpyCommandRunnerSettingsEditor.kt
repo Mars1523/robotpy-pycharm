@@ -11,11 +11,13 @@ import javax.swing.JTextField
 class RobotpyCommandRunnerSettingsEditor : SettingsEditor<RobotpyRunConfiguration>() {
     private var myPanel: JPanel? = null
     private var commandLabeledField: LabeledComponent<JTextField>? = null
+    private var optionsLabeledField: LabeledComponent<JTextField>? = null
     private var profileLabeledField: LabeledComponent<JCheckBox>? = null
     private var coverageLabeledField: LabeledComponent<JCheckBox>? = null
 
     override fun resetEditorFrom(robotpyRunConfiguration: RobotpyRunConfiguration) {
         commandLabeledField?.component?.text = robotpyRunConfiguration.command
+        optionsLabeledField?.component?.text = robotpyRunConfiguration.options
         profileLabeledField?.component?.isSelected = robotpyRunConfiguration.profile
         coverageLabeledField?.component?.isSelected = robotpyRunConfiguration.coverage
     }
@@ -24,6 +26,7 @@ class RobotpyCommandRunnerSettingsEditor : SettingsEditor<RobotpyRunConfiguratio
     override fun applyEditorTo(robotpyRunConfiguration: RobotpyRunConfiguration) {
         robotpyRunConfiguration.apply {
             command = commandLabeledField?.component?.text ?: ""
+            options = optionsLabeledField?.component?.text ?: ""
             profile = profileLabeledField?.component?.isSelected ?: false
             coverage = coverageLabeledField?.component?.isSelected ?: false
         }
@@ -36,6 +39,8 @@ class RobotpyCommandRunnerSettingsEditor : SettingsEditor<RobotpyRunConfiguratio
     private fun createUIComponents() {
         commandLabeledField = LabeledComponent()
         commandLabeledField!!.component = JTextField()
+        optionsLabeledField = LabeledComponent()
+        optionsLabeledField!!.component = JTextField()
         profileLabeledField = LabeledComponent()
         profileLabeledField!!.component = JCheckBox()
         coverageLabeledField = LabeledComponent()

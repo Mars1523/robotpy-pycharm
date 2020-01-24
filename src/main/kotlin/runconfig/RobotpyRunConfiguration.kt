@@ -23,7 +23,6 @@ import com.intellij.psi.search.GlobalSearchScopes
 import com.jetbrains.python.PythonHelpersLocator
 import com.jetbrains.python.console.PythonDebugLanguageConsoleView
 import com.jetbrains.python.run.PythonTracebackFilter
-import com.jetbrains.python.sdk.PythonSdkType
 import com.jetbrains.python.sdk.PythonSdkUtil
 import org.jdom.Element
 import org.jetbrains.annotations.NotNull
@@ -37,7 +36,7 @@ import java.nio.file.Paths
 private class RobotpyRunState(
     val config: RunConfiguration,
     val environment: ExecutionEnvironment,
-    private val command: List<String>
+    private val cmd: GeneralCommandLine
 ) :
     RunProfileState {
 
@@ -48,17 +47,17 @@ private class RobotpyRunState(
     }
 
     override fun execute(executor: Executor?, runner: ProgramRunner<*>): ExecutionResult? {
-        val cmd = GeneralCommandLine(command)
+        val command = cmd.commandLineString
 
-        val test = command.contains("test")
-        if (test) {
+        val isTest = command.split(" ").getOrNull(2) == "test"
+        if (isTest) {
             cmd.addParameters("--", "-p", "pytest_teamcity")
             cmd.environment["PYTHONPATH"] = PythonHelpersLocator.getHelperPath("pycharm")
         }
 
         val processHandler = OSProcessHandler(cmd)
 
-        val console = if (test) {
+        val console = if (isTest) {
             createTestConsole(processHandler)
         } else {
             createExecutionConsole(processHandler)
@@ -100,12 +99,14 @@ class RobotpyRunConfiguration(
     private val LOG = Logger.getInstance(this::class.java)
 
     var command: String = ""
+    var options: String = ""
     var coverage = false
     var profile = false
 
     override fun readExternal(element: Element) {
         super.readExternal(element)
         element.readString("command")?.let { command = it }
+        element.readString("options")?.let { options = it }
         element.readBool("profile")?.let { profile = it }
         element.readBool("coverage")?.let { coverage = it }
     }
@@ -113,6 +114,7 @@ class RobotpyRunConfiguration(
     override fun writeExternal(element: Element) {
         super.writeExternal(element)
         element.writeString("command", command)
+        element.writeString("options", options)
         element.writeBool("profile", profile)
         element.writeBool("coverage", coverage)
     }
@@ -142,7 +144,13 @@ class RobotpyRunConfiguration(
             cmd += "coverage"
         }
         cmd += command
+        val command = GeneralCommandLine(cmd)
 
-        return RobotpyRunState(this, executionEnvironment, cmd)
+
+        @Suppress("UNCHECKED_CAST")
+        val x = CommandLineTokenizer(options).toList() as List<String>
+        command.addParameters(x)
+
+        return RobotpyRunState(this, executionEnvironment, command)
     }
 }
