@@ -2,7 +2,7 @@
     <id>com.noskcaj19.robotpy-pycharm</id>
     <name>RobotPy</name>
     <vendor email="kcajdev@gmail.com" url="https://noskcaj19.github.io">Noskcaj19</vendor>
-    <idea-version since-build="191"/>
+    <idea-version since-build="193"/>
 
     <description><![CDATA[
     Utilities for building FRC robots with <a href="https://robotpy.readthedocs.io/en/stable/">RobotPy</a> and PyCharm
