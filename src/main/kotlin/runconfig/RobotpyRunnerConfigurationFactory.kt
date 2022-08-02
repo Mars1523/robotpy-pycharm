@@ -10,9 +10,7 @@ class RobotpyRunnerConfigurationFactory(type: ConfigurationType) : Configuration
         return RobotpyRunConfiguration(project, this, "Robotpy")
     }
 
-    override fun getName(): String {
-        return FACTORY_NAME
-    }
+    override fun getId(): String = FACTORY_NAME
 
     companion object {
         const val FACTORY_NAME = "Robotpy configuration factory"
