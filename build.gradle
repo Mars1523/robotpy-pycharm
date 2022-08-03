@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'com.mars'
-version '1.3.1-SNAPSHOT'
+version '1.4-SNAPSHOT'
 
 repositories {
     mavenCentral()
@@ -36,7 +36,7 @@ wrapper {
 patchPluginXml {
     changeNotes """
         <ul>
-            <li>Add support for custom run options</li>
+            <li>Update to be compatible with newer IDEs</li>
         </ul>
     """
 }
